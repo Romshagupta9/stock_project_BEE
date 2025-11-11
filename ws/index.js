@@ -17,7 +17,7 @@ wss.on("connection", (socket) => {
 })() // IIFE -> IMMEDIATELT INVOKED FUNCTION EXPRESSION -> func. wrapped in paranthesis and called immediatelys
 })
 
-function breaodcast(message){
+function broadcast(message){
     allsocket.forEach((s)=>{
         s.send(message);
     })
