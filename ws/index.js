@@ -12,7 +12,7 @@ wss.on("connection", (socket) => {
     await subscriber.SUBSCRIBE("book_update", (message) => {
         // broadcasting
         let parsedMessage = JSON.parse(message);
-        console.log(parsedMessage);
+        broadcast(JSON.stringify(parsedMessage));
     })
 })() // IIFE -> IMMEDIATELT INVOKED FUNCTION EXPRESSION -> func. wrapped in paranthesis and called immediatelys
 })
