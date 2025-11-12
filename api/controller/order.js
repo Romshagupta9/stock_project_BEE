@@ -5,7 +5,9 @@ let ob = new OrderBook("BTCUSD");   // global object
 
 module.exports.postPlaceOrder = async (req, res) => {
     // create a new order for user who is placing an order
+    let{symbol} = req.query;
     let{side, type, price, quantity, user} = req.body;
+    let ob= OrderBook.getOrderBook(symbol);
     let response = ob.placeOrder(side, type, price, quantity, user);
 
 console.log(response);
@@ -22,12 +24,18 @@ console.log(response);
 }
 
 module.exports.getOrderBook = async(req, res) => {
+    let {symbol} = req.query;
+    let ob= OrderBook.getOrderBook(symbol);
     let bookSnapshot = ob.getBookSnapShot();
     return res.json(bookSnapshot);
 }
 
 module.exports.getRecentTrades = async(req, res) => {
-    let {limit} = req.query;
+    let{symbol,limit}= req.query;
+    let ob= OrderBook.getOrderBook(symbol);
     let recentTrades= ob.getRecentTrades(limit);
     return res.json(recentTrades);
 }
+
+
+//websocket server will listen to the order book updates and broadcast to all connected clients
